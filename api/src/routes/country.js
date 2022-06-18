@@ -14,7 +14,7 @@ const getCountries = async () => {
             flag: a.flags[1],
             continent: a.continents[0],
             capital: a.capital != null ? a.capital[0] : "No data", //
-            subregion: a.subregion,
+            subregion: a.subregion != null ? a.subregion : "No data",
             area: a.area,
             population: a.population,
         }
@@ -27,10 +27,10 @@ const countriesToDb = async () => {
     try {
         // Se verifica si la base de datos (db) contiene informacion
         const countries = await Country.findAll();
-        // De lo contrario ingresar informacion a la db de 
         if(countries.length === 0) {
             // Tomar data de paises
             const array = await getCountries();
+            // let arrayJSON = await JSON.parse(array)
             await Country.bulkCreate(array)
         }
     } catch (error) {
@@ -41,11 +41,25 @@ const countriesToDb = async () => {
 const loadCountries = async () => { await countriesToDb() }
 loadCountries()
 
+
+// router.post('/countries/bulk', async (req, res) => {
+//     // console.log(req.body)
+//     res.send(await Country.bulkCreate(req.body));
+//     // res.send(await Country.bulkCreate(totalPaises));
+// });
+
 router.get('/countries', async (req, res) => {
     const { name } = req.query;
+
     try {
         if(!name) {
-            const countries = await Country.findAll();
+            const countries = await Country.findAll({
+                include: [{ // eagerloading de TouristActivity
+                    model: TouristActivity,
+                    attributes: [ 'name', 'difficulty', 'duration', 'season',],
+                    through: { attributes: [] }
+                }] 
+            });
             
             if(countries.length) {
                 return res.status(200).json(countries);
@@ -56,7 +70,12 @@ router.get('/countries', async (req, res) => {
             const country = await Country.findAll({
                 where: {
                     name: {[Op.substring]: name} // que incluya el texto que se nos pasa por query
-                }
+                }, 
+                include: [{ 
+                    model: TouristActivity,
+                    attributes: [ 'name', 'difficulty', 'duration', 'season',],
+                    through: { attributes: [] }
+                }] 
             })
             if(country.length) {
                 return res.status(200).json(country);
@@ -78,7 +97,7 @@ router.get('/countries/:idPais', async (req, res) => {
             where: {
                 id:  idPais.toUpperCase()
             }, 
-            include: [{ // eagerloading de TouristActivity
+            include: [{ 
                 model: TouristActivity,
                 attributes: [ 'name', 'difficulty', 'duration', 'season',],
                 through: { attributes: [] }
@@ -94,5 +113,8 @@ router.get('/countries/:idPais', async (req, res) => {
     }
     
 });
+
+
+
   
 module.exports = router;
