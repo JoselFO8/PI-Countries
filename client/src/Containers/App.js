@@ -1,45 +1,41 @@
 import './App.css';
-// import { Route, Link } from 'react-router-dom'
-import { Route } from 'react-router-dom'
+import { Route, useLocation } from 'react-router-dom'
 
 import NavBar from '../Components/Search/NavBar.jsx';
 
+import Homepage from '../Components/Homepage/Homepage.jsx'
 import Countries from '../Components/Countries/Countries.jsx'
 import CountryDetail from '../Components/Countries/CountryDetail.jsx'
-// import Country from '../Components/Navigation/Country.jsx';
 import ActivitiesForm from '../Components/ActivitiesForm/ActivitiesForm';
-import Footer from '../Components/Navigation/Footer';
-import About from '../Components/Navigation/About';
-
-// import { Wrapper } from '../Pagination/Wrapper';
-// import Appi from '../Pagination/Appi.jsx';
+import Footer from '../Components/Footer/Footer.jsx';
+import About from '../Components/About/About.jsx';
 
 
 function App() {
+  const {pathname} = useLocation();
+
+  const renderNavBar = (
+        pathname === '/'
+        ? <></>
+        : <Route path='/'>
+              <NavBar />
+            </Route>
+  )
 
   return (
     <div className="App">
-      <h1>Home (App) Countries</h1>
-      <a href="/countries">Iniciar!</a>
-
-
-      {/* <Route path='/Api'>
-        <Appi />
+        
+      <Route exact path='/'>
+        <Homepage />
       </Route>
 
-      <Route path='/Wrapper'>
-        <Wrapper />
-      </Route> */}
+      { renderNavBar }
 
-      <Route path='/countries'>
-        <NavBar />
-      </Route>
-
-      <Route exact path='/countries'>
+      <Route exact path='/home'>
         <Countries />
       </Route>
 
-      <Route path='/countries/:id'>
+      <Route path='/home/:id'>
         <CountryDetail />
       </Route>
 
@@ -51,9 +47,14 @@ function App() {
         <About />
       </Route>
 
-      <Route path='/'>
-        <Footer />
-      </Route>
+      {
+        pathname === '/'
+        ? <></>
+        : <Route path='/'>
+            <Footer />
+          </Route>
+      }
+
     </div>
   );
 }

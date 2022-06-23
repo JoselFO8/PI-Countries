@@ -16,16 +16,25 @@ module.exports = (sequelize) => {
         max: 5,
         isEven(value) {
           if(value < 1 || value > 5) {
-            throw new Error('Solo valores entre 1 y 5!')
+            throw new Error('Only values between 1 and 5!')
           }
         }
       }
     },
     duration: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        min: 1,
+        max: 24,
+        isEven(value) {
+          if(value < 1 || value > 24) {
+            throw new Error('Only values between 1 and 24!')
+          }
+        }
+      }
     },
-    season: { // Summer, Autumn, Winter or Spring)
+    season: { 
       type: DataTypes.ENUM('Summer', 'Autumn', 'Winter', 'Spring'),
       allowNull: false,
     }
@@ -33,17 +42,3 @@ module.exports = (sequelize) => {
     timestamps: false
   });
 };
-
-
-// -------------------- REQUERIMIENTO -------------------- //
-
-/*
-Base de datos
-El modelo de la base de datos deberá tener las siguientes entidades (Aquellas propiedades marcadas con asterísco deben ser obligatorias):
-
-
-
-La relación entre ambas entidades debe ser de muchos a muchos ya que un país puede contener varias actividades turísticas 
-y, a su vez, una actividad turística puede darse en múltiples países. Por ejemplo una actividad podría ser "Ski" 
-que podría ocurrir en Argentina y también en Estados Unidos, pero a su vez Argentina podría también incluir "Rafting".
-*/

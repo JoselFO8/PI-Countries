@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addTouristActivities } from '../../Redux/actions/actions.js'
 
 import { getCountries } from '../../Redux/actions/actions.js'
+import style from './ActivitiesForm.module.css'
 
 
 function validate(input) {
@@ -140,7 +141,7 @@ export default function  ActivitiesForm() {
 
     const renderFilter = (
         coincidences && coincidences.length === 0
-        ?   <p>Country not found!</p>
+        ?   <p className={style.errors}> Country not found!</p>
         :  coincidences && coincidences.map(country => { 
                 return (
                     <div key={country.id}>
@@ -155,7 +156,7 @@ export default function  ActivitiesForm() {
         ?   <p>Country not found!</p>
         :  selectedCountries && selectedCountries.map(country => { 
                 return (
-                    <div key={country.id}>
+                    <div className={style.selected} key={country.id}>
                         <label>Name: {country.name} ({country.id}) <button name="countryId" id="countryId" value={country.id} onClick={(e) => deleteInput(e)}>Eliminar</button></label>
                     </div> 
                 )
@@ -166,87 +167,88 @@ export default function  ActivitiesForm() {
     
 
     return (
-        <div>
-            <h1>Desde FROM</h1>
-            <button onClick={() => {console.log(state)}}>State</button>
-            <button onClick={() => {console.log(errors)}}>errors</button>
-            <button onClick={() => {console.log(selectedCountries)}}>chosenCountries</button>
-            <button onClick={() => {console.log(input)}}>Input</button>
+        <div className={style.ActivitiesForm}>
             
+            <div className={style.formContainer}>
+                <h1 className={style.title}>Please enter the desired activities in the form</h1>
+                
+                <div className={style.chooseCountries}>
+                    <label>Choose countries: </label>
+                    <input type="text" 
+                    name="chooseCountries" //countryId
+                    id="chooseCountries"
+                    placeholder='Choose the countries...'
+                    onChange={(e) => handleInputsChange(e)} 
+                    />
+                    {errors.countryId && ( <p className={style.errors}>{errors.countryId}</p> )}
+                    <div className={style.searchCountries}>
+                        { renderFilter }
+                    </div>
+                </div>
 
-            <div>
-                <label>Choose countries: </label>
-                <input type="text" 
-                name="chooseCountries" //countryId
-                id="chooseCountries"
-                placeholder='Choose the countries...'
-                onChange={(e) => handleInputsChange(e)} 
-                />
-                { renderFilter }
-                {errors.countryId && ( <p >{errors.countryId}</p> )}
-            </div>
+                <form className={style.form} id="activitiesForm" onSubmit={(e) => handleOnSubmit(e)}>
+                    <div className={style.activityName}>
+                         <label>Activity name: </label>
+                        <input
+                            type="text" 
+                            name="name"
+                            id="name"
+                            placeholder='Enter activity...'
+                            onChange={(e) => handleInputsChange(e)} 
+                        />
+                        {errors.name && ( <label className={style.errors}> {errors.name}</label> )}
+                    </div>
 
-            <form id="activitiesForm" onSubmit={(e) => handleOnSubmit(e)}>
-                <div>
-                    <label>Activity name: </label>
+                    <div className={style.duration}>
+                    <label>Duration: </label>
                     <input
                         type="text" 
-                        name="name"
-                        id="name"
-                        placeholder='Enter activity...'
+                        name="duration" 
+                        id="duration"
+                        placeholder='Duration in hours...'
                         onChange={(e) => handleInputsChange(e)} 
                     />
-                    {errors.name && ( <p> {errors.name}</p> )}
+                    {errors.duration && ( <label className={style.errors}>{errors.duration}</label> )}
+                    </div>
+                    
+
+                    <div className={style.difficulty}>
+                        <label htmlFor="">Difficulty </label>
+                        <select name="difficulty" id="difficulty" /*size="5"*/ onChange={(e) => handleInputsChange(e)} >
+                        <option> </option>
+                            <option value={1}>1 </option>
+                            <option value={2}>2</option>
+                            <option value={3}>3</option>
+                            <option value={4}>4</option>
+                            <option value={5}>5</option>
+                        </select>
+                        {errors.difficulty && ( <label className={style.errors}>{errors.difficulty}</label> )}
+                    </div>
+
+
+                    <div className={style.season}>
+                        <label htmlFor="">Season </label>
+                        <select name="season" id="season" onChange={(e) => handleInputsChange(e)} >
+                        <option> </option>
+                            <option value={"Spring"}>Spring </option>
+                            <option value={"Summer"}>Summer</option>
+                            <option value={"Autumn"}>Autumn</option>
+                            <option value={"Winter"}>Winter</option>
+                        </select>
+                        {errors.season && ( <label className={style.errors}>{errors.season}</label> )}
+                    </div>
+
+
+                    <div className={style.button}>
+                        <input type="submit" name="submit" disabled={Object.keys(errors).length === 0 ? false : true}/>
+                    </div>
+                </form>
+
+                <div className={style.countries}>
+                    { renderDulpicados }
                 </div>
-
-                <div>
-                <label>Duration: </label>
-                <input
-                    type="text" 
-                    name="duration" 
-                    id="duration"
-                    placeholder='Duration in hours...'
-                    onChange={(e) => handleInputsChange(e)} 
-                />
-                {errors.duration && ( <p >{errors.duration}</p> )}
-                </div>
-                
-
-                <div>
-                    <label htmlFor="">Difficulty </label>
-                    <select name="difficulty" id="difficulty" /*size="5"*/ onChange={(e) => handleInputsChange(e)} >
-                    <option> </option>
-                        <option value={1}>1 </option>
-                        <option value={2}>2</option>
-                        <option value={3}>3</option>
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
-                    </select>
-                    {errors.difficulty && ( <p >{errors.difficulty}</p> )}
-                </div>
-
-
-                <div>
-                    <label htmlFor="">Season </label>
-                    <select name="season" id="season" onChange={(e) => handleInputsChange(e)} >
-                    <option> </option>
-                        <option value={"Spring"}>Spring </option>
-                        <option value={"Summer"}>Summer</option>
-                        <option value={"Autumn"}>Autumn</option>
-                        <option value={"Winter"}>Winter</option>
-                    </select>
-                    {errors.season && ( <p >{errors.season}</p> )}
-                </div>
-
-
-                <div>
-                    <input type="submit" name="submit" disabled={Object.keys(errors).length === 0 ? false : true}/>
-                </div>
-            </form>
-
-            <div>
-                { renderDulpicados }
             </div>
+            
         </div>
     )
 

@@ -1,0 +1,54 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.homepage {
+    background-image: url('../../pictures/Tourism_2.jpg');
+    background-size: cover;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.homepage .centerbox {
+    background: rgba(162, 188, 204, 0.8);
+    width: 550px;
+    height: 200px;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    /* box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 1); */
+    box-shadow: rgba(162, 188, 204, 0.8) 0px 5px 40px 30px;
+}
+
+.homepage .centerbox .title {
+    height: 40%;
+    text-align: center;
+    color:rgb(32, 32, 124);
+}
+
+.homepage .centerbox .button {
+    background: rgba(162, 188, 204, 0.7);
+    height: 40px;
+    width: 80px;
+    border: 4px solid  rgb(32, 32, 124);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+
+#button { 
+    text-decoration:underline rgba(162, 188, 204, 1 ); 
+    vertical-align: middle;
+    text-align: center;
+    color:rgb(32, 32, 124);
+}
+
+.homepage .centerbox .button:hover {
+    background: rgba(28, 124, 184, 0.5);
+  }

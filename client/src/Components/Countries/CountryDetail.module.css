@@ -1,0 +1,113 @@
+.CountryDetail {
+    background-image: url('../../pictures/Passport_1.jpg');
+    overflow: hidden;
+    height: 86vh;
+    /* padding: 10px; */
+}
+
+.detailContainer {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr;
+    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 1fr;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.background {
+    background-color: rgba(255, 255, 255, 0.7);
+    grid-area: 1 / 2 / 6 / 6;
+    height: 100%;
+    width: 100%;
+}
+
+.countryName {
+    grid-area: 1 / 2 / 2 / 6;
+}
+
+.flag {
+    /*         F   C   F   C     fila( F ) Columna ( C ) */
+    grid-area: 2 / 2 / 4 / 4;
+    height: 100%;
+} 
+
+.flag .img {
+    height: 100%;
+    width: 70%;
+}
+
+.detail {
+    grid-area: 4 / 2 / 6 / 4;
+    height: 100%;
+    width: 100%;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail .textContainer {
+    width: 85%;
+    color: black;
+}
+
+.activities {
+    grid-area: 2 / 4 / 5 / 6;
+    height: 100%;
+    width: 92%;
+}
+
+.activities .detailActivities {
+    height: 5%;
+    display: flex;
+    align-items: center;
+}
+
+.activities .detailActivities .name {
+    margin-left: 20px;
+    border-bottom: 1px solid rgb(180, 133, 45);
+    height: 95%;
+    width: 32%;
+    text-align: left;
+}
+
+.activities .detailActivities .difficulty {
+    border-bottom: 1px solid rgb(180, 133, 45);
+    height: 95%;
+    width: 19%;
+    text-align: left;
+}
+
+.activities .detailActivities .duration {
+    border-bottom: 1px solid rgb(180, 133, 45);
+    text-align: left;
+    height: 95%;
+    width: 19%;
+}
+
+.activities .detailActivities .season {
+    border-bottom: 1px solid rgb(180, 133, 45);
+    margin-right: 20px;
+    height: 95%;
+    width: 25%;
+    text-align: left;
+}
+
+.addActivity {
+    grid-area: 5 / 4 / 6 / 6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 92%;
+}
+
+.addActivity .buttonAdd {
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 30px;
+    width: 200px;
+    text-align: center;
+    color: white;
+    margin-bottom: 15px;
+}

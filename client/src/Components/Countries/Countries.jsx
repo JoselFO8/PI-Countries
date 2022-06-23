@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import {getCountries} from '../../Redux/actions/actions.js';
 import travellingTheWorld from '../../pictures/travellingTheWorld.gif'
+import style from './Countries.module.css'
 
 export default function Countries() {
 
@@ -76,17 +77,26 @@ export default function Countries() {
 
   const render = (
     allCountries.length === 0 
-      ? <div>
+      ? <div className={style.loading}>
           <img src={travellingTheWorld} alt="travelling the world" />
-          <h1>Loading...!</h1>
+          <h1 className={style.textLoading}>Loading...!</h1>
         </div> 
       :  currentCountries.map((paises) => {
         return (
-          <Link to={`/countries/${paises.id}`}>
-            <div key = {paises.id}>
-              <h4>{paises.continent}</h4>
-              <h3>{paises.name}</h3>
-              <img src={paises.flag} alt="" />
+          <Link to={`/home/${paises.id}`}>
+            <div className={style.card} key = {paises.id}>
+                <div>
+
+                  <div className={style.flag}>
+                    <img className={style.image} src={paises.flag} alt={paises.name}/>
+                  </div>
+
+                  <div className={style.text}>
+                    <h4 className={style.continent}>{paises.continent}</h4>
+                    <h3 className={style.name}>{paises.name}</h3>
+                  </div>
+                  
+                </div>
             </div>
           </Link> 
         )
@@ -94,32 +104,35 @@ export default function Countries() {
   )
 
   return (
-    <div>
-      <h1>Desde countries (Tarjetas)</h1>
+    <div className={style.Countries}>
+      <h2>Choose the country where you want to have tourist activities</h2>
+      <div className={style.cardsContent}>
+        { render }
+      </div>
+
+      <div>
+        <p>Page: {currentPage} </p>
+        {
+          currentPage !== 1
+            ? <button className={style.changePage} onClick={() => setCurrentPage(currentPage - 1)} > Previous </button>
+            : <></>
+        }
+
+        {
+          pageNumber.map((num) => {
+            return (
+              <button className={style.numChange} key={num} onClick={() => page(num)} > {num} </button>
+            );
+          })
+        }
+        
+        {
+          currentPage !== pageNumber.length
+            ? <button className={style.changePage} onClick={() => setCurrentPage(currentPage + 1)} > Next </button>
+            : <></>
+        }
+      </div>
       
-      <h1>Pagina: {currentPage} </h1>
-      {
-        currentPage !== 1
-          ? <button onClick={() => setCurrentPage(currentPage - 1)} > Previous </button>
-          : <></>
-      }
-
-      {
-        pageNumber.map((num) => {
-          return (
-            <button key={num} onClick={() => page(num)} > {num} </button>
-          );
-        })
-      }
-      
-      {
-        currentPage !== pageNumber.length
-          ? <button onClick={() => setCurrentPage(currentPage + 1)} > Next </button>
-          : <></>
-      }
-
-      { render }
-
     </div>  
   )
 

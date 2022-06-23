@@ -1,0 +1,29 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.Footer {
+    background-color: black;
+    overflow: hidden;
+    height: 4.8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1.5px solid beige;
+}
+
+.Footer .button {
+    border: 1.6px solid beige;
+    border-radius: 30px;
+    width: 200px;
+    height: 30px;
+
+    text-decoration:underline beige;
+    color: beige;
+}
+
+.Footer .button:hover {
+    border: 2px solid white;
+    
+}

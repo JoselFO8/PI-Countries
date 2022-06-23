@@ -31,6 +31,7 @@ const countriesToDb = async () => {
             // Tomar data de paises
             const array = await getCountries();
             // let arrayJSON = await JSON.parse(array)
+            // console.log(array)
             await Country.bulkCreate(array)
         }
     } catch (error) {
