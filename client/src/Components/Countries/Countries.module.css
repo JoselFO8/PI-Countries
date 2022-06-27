@@ -28,7 +28,7 @@
 /* --------------------- Cards --------------------- */
 
 .cardsContent {
-    height: 78%; 
+    height: 74%; 
     width: 90%;
     overflow: hidden;
 
@@ -49,7 +49,7 @@
 }
 
 .cardsContent .card .flag {
-    height: 200px;
+    height: 170px;
     overflow: hidden;
 }
 

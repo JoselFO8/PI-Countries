@@ -37,7 +37,7 @@ export const filterCountries = (argument) => {
                 console.log(error)
             })
     }
-}   
+}
 
 export function orderCountries(type) {
     return {

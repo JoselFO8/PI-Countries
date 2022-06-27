@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 
-import About from '../About/About.jsx'
 import style from './Footer.module.css'
 
 

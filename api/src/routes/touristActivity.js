@@ -9,7 +9,7 @@ router.post('/activities', async (req, res) => {
   const { name, difficulty, duration, season, countryId } = req.body;
 
   if(!name || !difficulty || !duration || !season || !countryId){
-    return res.status(404).send("Some fields need to be filled");
+    return res.status(400).send("Some fields need to be filled"); // sintaxis inválida
   }
 
   try {
@@ -42,19 +42,9 @@ router.get('/activities', async (req, res) => {
   if(activities) {
     return res.status(200).json(activities);
   } else {
-    return res.status(400).json(activities.length ? activities : 'Activities not found!');
+    return res.status(404).json(activities.length ? activities : 'Activities not found!'); // no pudo encontrar el contenido solicitado
   }
 
-  // const activities = await TouristActivity.findAll({
-  //   include: [{
-  //     model: Country,
-  //     attributes: ['id', 'continent', 'name', 'flag'],
-  //     through: {
-  //       attributes: [] // al cambiar a {} cambia todo
-  //     }
-  //   }]
-  // });
-  // res.json(activities.length ? activities : 'Activities not found!');
 });
   
 module.exports = router;

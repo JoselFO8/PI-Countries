@@ -1,11 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/home/i);
-  expect(linkElement).toBeInTheDocument();
+test('No', () => {
+  render('No');
+  const text= screen.getByText('No');
+  expect(text).toBeInTheDocument();
 });
-
-
-// https://testing-library.com/docs/example-react-router/

@@ -15,7 +15,7 @@ export default function CountryDetail () {
     },[dispatch]); 
 
     const COUNTRY = useSelector((state) => state.country)
-    console.log(id)
+    
     const numberWithDot = (x) => {
         if(typeof x === 'number') {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');

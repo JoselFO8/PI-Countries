@@ -4,16 +4,37 @@ import { render, screen } from '@testing-library/react'
 import About from "./About";
 
 const content = {
-    title: "About",
-    body: "CAMBIAR The App is an online app that originated in May 2022, with its roots planted in knowledge of the React library in Henry's course. The application connects to external databases to identify the meteorology (weather and climate) of different cities. Its development based in Mosquera-Colombia, is headed by Jose Fernández as lead developer."
+    name: "Jose Luis Fernández Orjuela",
+    profession: "Estudiante de desarrollo web Full-Stack",
 }
 
-test('The component must have as title: "About"', () => {
+
+test("The component must have a text indicating the author's profession", () => {
     const component = render(<About />)
-    expect(component.container).toHaveTextContent(content.title)
+    expect(component.container).toHaveTextContent(content.profession)
 })
 
-test('The component should have a text describing about', () => {
-    const {getByRole} = render(<About />);
-    expect(getByRole('heading', {level: 5}))
+test("There should be two level one headings, specifying about, name of the author and the project", () => {
+    const { container } = render(<About />)
+    let h1 = container.querySelectorAll('h1');
+    //[role="listitem"]
+    expect(h1.length).toEqual(3);
+})
+
+test("There must be three level 5 heading text components", () => {
+    const { container } = render(<About />)
+    let h5 = container.querySelectorAll('h5');
+    expect(h5.length).toEqual(3);
+})
+
+test("There must be an unordered list", () => {
+    const { container } = render(<About />)
+    let ul = container.querySelectorAll('ul');
+    expect(ul.length).toEqual(1);
+})
+
+test("The unordered list must have seven items", () => {
+    const { container } = render(<About />)
+    let li = container.querySelectorAll('li');
+    expect(li.length).toEqual(7);
 })

@@ -1,24 +1,21 @@
-// import { useState } from 'react';
 import {GET_COUNTRIES, FILTER_COUNTRIES, ORDER_COUNTRIES, GET_COUNTRY_DETAIL, ADD_TOURIST_ACTIVITIES, GET_TOURIST_ACTIVITIES} from '../action-types/actionsTypes.js'
 
 const initialState = {
     countries: [],
     searchCountries: [],
     country: {},
-    touristActivities: []
+    touristActivities: [],
 };
 
 
 export default function rootReducer(state = initialState, action) {
     
     const order = (array, params) => {
-        console.log("order",array, params)
         let orderCountries = array.sort((a, b) => {
             if (a[params] > b[params]) return 1
             if (a[params] < b[params]) return -1
             return 0;
         })
-        console.log("Desde fn orderCountries",orderCountries)
         return orderCountries
     }
     
@@ -67,26 +64,30 @@ export default function rootReducer(state = initialState, action) {
                 return {
                     ...state, 
                     searchCountries: countries,
-                    error: '' // limpiar el state error
+                    error: '' 
                 }
             }
 
-            
-
         case ORDER_COUNTRIES:
+            console.log("desde ORDER_COUNTRIES")
             let orderedCountries
-            // console.log("action", action, "orderedCountries", orderedCountries)
 
-            if(action.payload === "ASC") { //orderedCountries = state.searchCountries ? order(state.searchCountries, "name") : order(state.countries, "name")
+            if(action.payload === "ASC") { 
                 if(state.searchCountries.length > 0)  orderedCountries = order(state.searchCountries, "name")
                 else orderedCountries = order(state.countries, "name")
-            }
 
-            else if(action.payload === "DES") orderedCountries = state.searchCountries ? order(state.searchCountries, "name").reverse() : order(state.countries, "name").reverse()
-            
-            else if(action.payload === "least") orderedCountries = state.searchCountries ? order(state.searchCountries, "population") : order(state.countries, "population")
-                 
-            else if(action.payload === "largest") orderedCountries = state.searchCountries ? order(state.searchCountries, "population").reverse() : order(state.countries, "population").reverse()
+            } else if(action.payload === "DES") {
+                if(state.searchCountries.length > 0) orderedCountries = order(state.searchCountries, "name").reverse()
+                else orderedCountries = order(state.countries, "name").reverse()
+
+            } else if(action.payload === "least") {
+                if(state.searchCountries.length > 0) orderedCountries = order(state.searchCountries, "population") 
+                else orderedCountries = order(state.countries, "population")
+                
+            } else if(action.payload === "largest") { 
+                if(state.searchCountries.length > 0) orderedCountries = order(state.searchCountries, "population").reverse()
+                else orderedCountries = order(state.countries, "population").reverse()
+            }
 
             return {
                 ...state, 

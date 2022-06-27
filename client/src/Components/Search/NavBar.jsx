@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, Link } from 'react-router-dom';
 
-import { orderCountries, filterCountries, getTouristActivities} from '../../Redux/actions/actions.js';
+import { orderCountries, filterCountries, getTouristActivities } from '../../Redux/actions/actions.js';
 import style from './NavBar.module.css'
 
 export default function NavBar() {
@@ -19,6 +19,7 @@ export default function NavBar() {
   function handleSubmit(event) {
     event.preventDefault();
     dispatch(filterCountries({type: "country", argument: value}))
+
   }
     
   function order(event) {
@@ -32,7 +33,6 @@ export default function NavBar() {
   }
 
   const State = useSelector((state) => state)
-
 
   let allActivities = State.touristActivities.map(activity => activity.name)
   let activities = allActivities.filter((activity, index) => allActivities.indexOf(activity) === index )
@@ -76,7 +76,7 @@ export default function NavBar() {
                             placeholder='Search by country...' 
                             onChange={(e) => handleChange(e.target.value)} 
                           />
-                          <button type="submit">Buscar</button>
+                          <button type="submit">Search</button>
                         </form>
                         {
                           State.error && typeof State.error.searchCountry === 'string'

@@ -123,7 +123,7 @@ export default function  ActivitiesForm() {
                 selectedCountries.push(country)
                 value = input.countryId[i]
               }
-          }
+        }
         if(country.id !== value) return country
     })
 
